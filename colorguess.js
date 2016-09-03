@@ -11,16 +11,29 @@ window.onload = function() {
             messageDisplay = document.querySelector("#message"),
             h1 = document.querySelector("h1"),
             resetButton = document.querySelector("#reset"),
-            modeButtons = document.querySelectorAll(".mode");
+            modeButtons = document.querySelectorAll(".mode"),
+            modeNumber = 0;
         
         for (var i = 0; i < modeButtons.length; i++) {
             modeButtons[i].addEventListener("click", function() {
-                modeButtons[0].classList.remove("selected");
-                modeButtons[1].classList.remove("selected");
-               this.classList.add("selected");
-                
                 this.textContent === "Easy" ? numSquares = 3 : numSquares = 6;
-                newGame();
+                if (!this.classList.contains("selected")) {
+                    newGame();
+                    this.classList.add("selected")
+                    if (this === modeButtons[0]) {
+                        modeButtons[1].classList.remove("selected");
+                    }
+                    modeNumber++;
+                }
+                if(modeNumber === 2) {
+                    if (this === modeButtons[1]) {
+                        modeButtons[0].classList.remove("selected");
+                    }
+                    if (this === modeButtons[0]) {
+                        modeButtons[0].classList.remove("selected");
+                    }
+                    modeNumber = 0;
+                }
             });
         }
 
