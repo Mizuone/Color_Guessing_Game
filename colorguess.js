@@ -3,7 +3,7 @@ window.onload = function() {
     var ColorSpace = {};
     
     ColorSpace = (function() {
-            var numSquares = 6,
+            var numSquares = 12,
             colors = [],
             pickedColor,
             sqaures = document.querySelectorAll(".square"),
@@ -14,13 +14,27 @@ window.onload = function() {
             modeButtons = document.querySelectorAll(".mode"),
             modeNumber = 0;
         
+        modeButtons[1].style.color = "firebrick";
         for (var i = 0; i < modeButtons.length; i++) {
             modeButtons[i].addEventListener("click", function() {
-                this.textContent === "Easy" ? numSquares = 3 : numSquares = 6;
+                this.textContent === "Easy" ? numSquares = 3 : false;
+                this.textContent === "Hard" ? numSquares = 12 : false;
+                this.textContent === "God" ? numSquares = 32 : false;
+                if (this.textContent === "Hard") {
+                    this.style.color = "firebrick";
+                    modeButtons[0].style.color = "#000";
+                }
+                if (this.textContent === "Easy") {
+                    this.style.color = "#56FF4E"; //Bright emerald
+                    modeButtons[1].style.color = "#000";
+                }
+                if (this.textContent === "God") {
+                    modeButtons[1].style.color = "#000";
+                }
                 if (!this.classList.contains("selected")) {
                     newGame();
                     this.classList.add("selected")
-                    if (this === modeButtons[0]) {
+                    if (this === modeButtons[0] || this === modeButtons[2]) {
                         modeButtons[1].classList.remove("selected");
                     }
                     modeNumber++;
